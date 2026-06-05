@@ -8,7 +8,7 @@
 This repository contains all the completed tasks for the **Cognifyz Technologies Machine Learning Internship Program**. The internship involves working with a real-world restaurant dataset to build ML models and derive insights.
 
 ```
-
+```
 ---
 
 ## 📊 Dataset Overview

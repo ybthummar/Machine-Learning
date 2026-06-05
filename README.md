@@ -64,9 +64,3 @@ pandas, numpy, matplotlib, seaborn, scikit-learn
 4. Run all cells
 
 ---
-
-## 📬 Connect
-**Cognifyz Technologies**  
-🌐 [www.cognifyz.com](https://www.cognifyz.com)  
-📧 contact@cognifyz.com  
-🏷️ #cognifyz #cognifyzTech #cognifyzTechnologies

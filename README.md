@@ -7,29 +7,6 @@
 ## 📌 About
 This repository contains all the completed tasks for the **Cognifyz Technologies Machine Learning Internship Program**. The internship involves working with a real-world restaurant dataset to build ML models and derive insights.
 
----
-
-## 📁 Folder Structure
-
-```
-cognifyz-ml-internship/
-│
-├── dataset/
-│   └── Dataset.csv                  # Zomato restaurant dataset (9551 rows, 21 columns)
-│
-├── Task1_Restaurant_Rating_Prediction/
-│   └── Task1_Restaurant_Rating_Prediction.ipynb
-│
-├── Task2_Restaurant_Recommendation/
-│   └── Task2_Restaurant_Recommendation.ipynb
-│
-├── Task3_Cuisine_Classification/
-│   └── Task3_Cuisine_Classification.ipynb
-│
-├── Task4_Location_Based_Analysis/
-│   └── Task4_Location_Based_Analysis.ipynb
-│
-└── README.md
 ```
 
 ---

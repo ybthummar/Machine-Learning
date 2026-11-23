@@ -17,7 +17,7 @@ Open <http://127.0.0.1:8000>. Pass `--port 8001` if port 8000 is in use.
 
 | View | What you can do |
 | --- | --- |
-| Worked example | Run Ooma through both models, compare the prediction bars with the original rating, follow the rating tree's questions, and read a short presentation script. |
+| Worked example | Run Ooma through both models, compare the prediction bars with the original rating, and follow the rating tree's questions. |
 | Browse data | Search by restaurant, cuisine or ID, filter by city, and select a record for your own prediction. |
 | Try your own | Edit inputs, run both models, and see similar restaurants with ratings of at least 4.0. |
 | Explore cities | Compare city record counts, coordinates, common cuisines, price tiers and average ratings. |

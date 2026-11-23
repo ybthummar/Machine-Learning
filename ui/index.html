@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restaurant Lab</title>
+<style>
+:root{color-scheme:light;--ink:#182d28;--muted:#52675f;--paper:#f4f5ee;--line:#d7dfd5;--accent:#d8ed9e;--green:#285748}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,sans-serif;color:var(--ink);background:var(--paper)}header{background:#152d26;color:#fff;padding:26px max(24px,calc((100vw - 1150px)/2)) 38px}main{max-width:1198px;margin:auto;padding:0 24px 48px}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:650}.brand a{color:var(--accent)}h1{font:clamp(48px,8vw,96px)/.98 Georgia,serif;letter-spacing:-.06em;margin:36px 0 16px}header p{color:#d5e3da;max-width:600px;margin:0}h2{font:35px/1.1 Georgia,serif;margin:0 0 12px}h3{margin:0 0 8px}p{margin:0 0 15px}small,.muted{color:var(--muted)}
+nav{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:24px}button,input,select{font:inherit;color:inherit;border:1px solid #9aac9f;border-radius:7px;background:white;padding:8px 12px;max-width:100%}button{cursor:pointer;font-weight:650}button:hover{background:#edf5df}button[aria-pressed=true],button.primary{background:var(--accent);border-color:#829b53}button:disabled{opacity:.45;cursor:default}a{color:#245440}
+.stats,.split,.fields{display:grid;gap:14px}.stats{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:24px}.split{grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));align-items:start}.fields{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));margin-bottom:15px}.card{background:white;border:1px solid var(--line);border-radius:12px;padding:21px;min-width:0}.stat strong,.result strong{display:block;font:37px/1.1 Georgia,serif}.result{margin-top:14px;background:#edf4df;padding:14px;border-radius:8px}.toolbar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin-bottom:14px}label{display:grid;gap:4px;font-size:.92rem;font-weight:650}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left}td,th{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{white-space:nowrap;background:#eff3ec}td button{padding:3px 7px;text-align:left}.pager{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}.bar{background:#edf1e8;border-radius:4px;overflow:hidden;height:7px;margin-bottom:10px}.bar span{display:block;background:#537b63;height:100%}.bar-label{display:flex;justify-content:space-between;gap:12px}canvas{width:100%;height:auto;background:#f3f7ef;border:1px solid var(--line);border-radius:8px}.error{color:#842b25}.spaced{margin-top:14px}footer{margin-top:30px;color:var(--muted)}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header>
+<div class="brand"><span>Cognifyz internship project</span><a href="/Dataset.csv" download>Download original CSV ↓</a></div>
+<h1>Restaurant Lab</h1><p>Explore the repository’s restaurant records, find similar restaurants, and run the models with inputs from the original data.</p>
+</header>
+<main>
+<nav aria-label="Lab sections">
+<button type="button" data-tab="data" aria-pressed="true">Original data</button><button type="button" data-tab="models" aria-pressed="false">Live models</button><button type="button" data-tab="recommend" aria-pressed="false">Recommendations</button><button type="button" data-tab="locations" aria-pressed="false">Locations</button><button type="button" data-tab="about" aria-pressed="false">How it works</button>
+</nav>
+<p id="notice" role="alert">Loading the dataset and model metrics…</p>
+<section id="data">
+<div id="stats" class="stats"></div>
+<div class="card"><h2>Dataset explorer</h2><p class="muted">Select a restaurant to load its original values into the model and recommendation views.</p>
+<form id="search-form" class="toolbar"><label>Search name, cuisine or ID<input name="q" type="search" placeholder="Try Japanese or Ooma"></label><label>City<select name="city" id="data-city"></select></label><button class="primary">Search</button></form>
+<div class="table-wrap"><table><thead><tr><th scope="col">Restaurant</th><th scope="col">City</th><th scope="col">Cuisines</th><th scope="col">Rating</th><th scope="col">Votes</th><th scope="col">Cost for two</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="pager"><button id="previous" disabled>Previous</button><button id="next" disabled>Next</button><span id="page-label" role="status"></span></div></div>
+</section>
+<section id="models" hidden>
+<h2>Live models</h2><p>Start with <strong class="selected-name"></strong> from the dataset or edit the model inputs below.</p>
+<div class="split">
+<article class="card"><h3>Predict a rating</h3><p class="muted" id="rating-metrics"></p>
+<form id="predict"><div class="fields"><label>Cost for two<input name="cost" type="number" min="0" max="1000000000" step="any" required></label><label>Votes<input name="votes" type="number" min="0" max="1000000000" required></label><label>Price tier<select name="price"><option>1</option><option>2</option><option>3</option><option>4</option></select></label><label>Table booking<select name="book"><option>No</option><option>Yes</option></select></label><label>Online delivery<select name="delivery"><option>No</option><option>Yes</option></select></label></div><button class="primary">Predict rating</button></form><div class="result" id="rating-output" role="status"></div></article>
+<article class="card"><h3>Classify cuisines</h3><p class="muted" id="cuisine-metrics"></p><form id="classify"><div class="fields"><label>Restaurant name<input name="name" readonly required></label><label>Cost for two<input name="cost" type="number" min="0" max="1000000000" step="any" required></label></div><button class="primary">Predict cuisines</button></form><div class="result" id="cuisine-output" role="status"></div></article>
+</div></section>
+<section id="recommend" hidden><div class="card"><h2>Similar restaurants</h2><p id="recommend-summary"></p><p class="muted">Matches share the same full cuisine label and have ratings of 4.0 or higher. Choose another restaurant from Original data to change the reference.</p><div id="recommend-list" class="split"></div></div></section>
+<section id="locations" hidden><h2>Restaurant locations</h2><div class="split">
+<article class="card"><h3>Most represented cities</h3><p class="muted">Restaurant records in the original dataset</p><div id="top-cities"></div></article>
+<article class="card"><label>City<select id="location-city"></select></label><p id="location-summary" class="spaced" role="status"></p><canvas id="coordinates" width="560" height="260" aria-label="Scatter plot of restaurant longitude and latitude"></canvas><small>Longitude runs left to right. Latitude increases upward. Axes rescale for each city.</small><h3 class="spaced">Most listed cuisines</h3><div id="city-cuisines"></div><h3 class="spaced">Price tiers</h3><div id="city-prices"></div></article>
+</div></section>
+<section id="about" hidden><h2>How it works</h2><div class="split">
+<article class="card"><h3>Rating prediction</h3><p>A decision tree learns from the cost for two, price tier, vote count, and booking and delivery options. It estimates ratings for restaurants with those characteristics.</p><p>Training excludes zero ratings, which the dataset labels as “Not rated,” and rating text and color, which are derived from the rating. MAE measures the average error in rating points. R² measures how much variation the model explains on the held-out rows. Votes are available for listings with existing reviews.</p></article>
+<article class="card"><h3>Cuisine classification</h3><p>A decision tree uses the encoded restaurant name and cost for two to predict a full cuisine label, such as “Japanese, Sushi.” Choose a known restaurant in Original data to try it.</p><p>Accuracy is the share of held-out rows with an exact label match. Names and prices alone provide limited information about cuisine, and names can occur in both training and test rows.</p></article>
+<article class="card"><h3>Recommendations</h3><p>The notebook represents each complete cuisine label as one category. Its Jaccard similarity is 1 for identical labels and 0 otherwise. The UI uses that matching rule, keeps the highest-rated row for each candidate name, and shows up to five results ranked by rating.</p></article>
+<article class="card"><h3>Location analysis</h3><p>City views count original records, plot the supplied coordinates, and summarize cuisine and price tiers. Average ratings use rated rows. Cuisine counts split comma-separated labels, so one restaurant can count toward several cuisines.</p><p>City totals describe dataset coverage. Costs are displayed with the currency listed in the source and are used as recorded by the models.</p></article>
+</div></section>
+<footer>Source: <a href="/Dataset.csv">Dataset.csv</a> · <a href="https://github.com/ybthummar/Machine-Learning">Original notebooks</a></footer>
+</main>
+<script>
+"use strict";
+const byId = id => document.getElementById(id);
+const fmt = value => new Intl.NumberFormat().format(value);
+const nameKey = "Restaurant Name", ratingKey = "Aggregate rating", costKey = "Average Cost for two";
+const notice = byId("notice");
+const search = byId("search-form");
+let page = 1, selection;
+const requests = {};
+function element(tag, value, className) {
+  const node = document.createElement(tag);
+  if (value !== undefined) node.textContent = value;
+  if (className) node.className = className;
+  return node;
+}
+async function get(route, params = {}) {
+  const response = await fetch("/api/" + route + "?" + new URLSearchParams(params));
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error);
+  return data;
+}
+function fail(error) {
+  notice.hidden = false;
+  notice.className = "error";
+  notice.textContent = error.message;
+}
+function tab(id) {
+  for (const button of document.querySelectorAll("[data-tab]")) {
+    const current = button.dataset.tab === id;
+    button.setAttribute("aria-pressed", current);
+    byId(button.dataset.tab).hidden = !current;
+  }
+}
+function options(select, values, all) {
+  if (all) select.add(new Option("All cities", ""));
+  for (const value of values) select.add(new Option(value, value));
+}
+function rating(value) { return value ? value.toFixed(1) + " / 5" : "Unrated"; }
+async function showRows(target = 1) {
+  const request = requests.rows = Symbol();
+  const params = new URLSearchParams(new FormData(search));
+  params.set("page", target);
+  const result = await get("data", params);
+  if (requests.rows !== request) return;
+  page = result.page;
+  const body = byId("rows");
+  body.replaceChildren();
+  for (const row of result.rows) {
+    const tr = body.insertRow();
+    const button = element("button", row[nameKey]);
+    button.onclick = () => selectRestaurant(row["Restaurant ID"], true).catch(fail);
+    tr.insertCell().append(button, element("div", "#" + row["Restaurant ID"], "muted"));
+    for (const value of [row.City, row.Cuisines ?? "Missing", rating(row[ratingKey]), fmt(row.Votes), fmt(row[costKey]) + " " + row.Currency]) {
+      tr.insertCell().textContent = value;
+    }
+  }
+  const first = (page - 1) * result.page_size + 1;
+  byId("page-label").textContent = result.total ? `${fmt(first)}–${fmt(first + result.rows.length - 1)} of ${fmt(result.total)} records` : "No matching records";
+  byId("previous").disabled = page <= 1;
+  byId("next").disabled = page * result.page_size >= result.total;
+}
+async function selectRestaurant(id, openModels = false) {
+  const request = requests.restaurant = Symbol();
+  const {source, recommendations} = await get("restaurant", {id});
+  if (requests.restaurant !== request) return;
+  selection = source;
+  for (const label of document.querySelectorAll(".selected-name")) label.textContent = source[nameKey];
+  const form = byId("predict").elements;
+  for (const [key, field] of Object.entries({cost:costKey, votes:"Votes", price:"Price range", book:"Has Table booking", delivery:"Has Online delivery"})) form[key].value = source[field];
+  byId("classify").elements.namedItem("name").value = source[nameKey];
+  byId("classify").elements.cost.value = source[costKey];
+  byId("rating-output").textContent = "Recorded rating: " + rating(source[ratingKey]);
+  byId("cuisine-output").textContent = "Recorded cuisines: " + (source.Cuisines ?? "Missing");
+  byId("recommend-summary").textContent = source[nameKey] + " · " + (source.Cuisines ?? "Cuisine missing") + " · " + source.City;
+  const list = byId("recommend-list");
+  list.replaceChildren();
+  if (!recommendations.length) list.append(element("p", "No matching restaurants meet these criteria."));
+  for (const row of recommendations) {
+    const card = element("article", undefined, "card");
+    const button = element("button", "Use this restaurant");
+    button.onclick = () => selectRestaurant(row["Restaurant ID"], true).catch(fail);
+    card.append(element("h3", row[nameKey]), element("p", row.City + " · " + rating(row[ratingKey])), button);
+    list.append(card);
+  }
+  if (openModels) tab("models");
+}
+function bars(id, values) {
+  const container = byId(id);
+  container.replaceChildren();
+  const entries = Object.entries(values);
+  if (!entries.length) container.append(element("p", "No data available."));
+  const max = Math.max(...entries.map(([, count]) => count));
+  for (const [label, count] of entries) {
+    const line = element("div", undefined, "bar-label");
+    const bar = element("div", undefined, "bar");
+    const fill = element("span");
+    fill.style.width = (100 * count / max) + "%";
+    bar.append(fill);
+    line.append(element("span", label), element("strong", fmt(count)));
+    container.append(line, bar);
+  }
+}
+function plot(points) {
+  const canvas = byId("coordinates");
+  const ctx = canvas.getContext("2d"), w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+  ctx.font = "14px system-ui";
+  ctx.fillStyle = "#285748";
+  if (!points.length) { ctx.fillText("No coordinates available", 20, 30); return; }
+  const xs = points.map(point => point[0]), ys = points.map(point => point[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  ctx.strokeStyle = "#9aac9f";
+  ctx.strokeRect(65, 20, w - 100, h - 60);
+  ctx.fillText(y1.toFixed(3), 7, 25);
+  ctx.fillText(y0.toFixed(3), 7, h - 39);
+  ctx.fillText(x0.toFixed(3), 65, h - 15);
+  ctx.textAlign = "right";
+  ctx.fillText(x1.toFixed(3), w - 35, h - 15);
+  ctx.textAlign = "left";
+  ctx.fillStyle = "rgba(40,87,72,.55)";
+  for (const [x, y] of points) {
+    const px = x0 === x1 ? w / 2 : 65 + (x - x0) / (x1 - x0) * (w - 100);
+    const py = y0 === y1 ? h / 2 : h - 40 - (y - y0) / (y1 - y0) * (h - 60);
+    ctx.beginPath(); ctx.arc(px, py, 3, 0, 2 * Math.PI); ctx.fill();
+  }
+}
+async function showLocation() {
+  const request = requests.location = Symbol();
+  const data = await get("locations", {city: byId("location-city").value});
+  if (requests.location !== request) return;
+  byId("location-summary").textContent = `${fmt(data.count)} records · ${fmt(data.rated)} rated · Mean rating ${data.average === null ? "unavailable" : data.average.toFixed(2) + " / 5"}`;
+  bars("city-cuisines", data.cuisines);
+  bars("city-prices", data.price);
+  plot(data.coordinates);
+}
+function prediction(formId, outputId, description) {
+  const form = byId(formId), output = byId(outputId);
+  form.onsubmit = async event => {
+    event.preventDefault();
+    const original = selection;
+    const request = requests[formId] = Symbol();
+    output.textContent = "Running model…";
+    try {
+      const result = await get(formId, new FormData(form));
+      if (original === selection && requests[formId] === request) description(output, result, original);
+    } catch (error) {
+      if (original === selection && requests[formId] === request) output.textContent = error.message;
+    }
+  };
+}
+async function init() {
+  const meta = await get("meta");
+  for (const [num, label] of [[meta.rows,"Restaurant records"],[meta.city_count,"Cities"],[meta.columns,"Original fields"],[meta.unrated,"Unrated records"]]) {
+    const card = element("article", undefined, "card stat");
+    card.append(element("strong",fmt(num)), element("span",label,"muted"));
+    byId("stats").append(card);
+  }
+  options(byId("data-city"), meta.cities, true);
+  options(byId("location-city"), meta.cities, false);
+  byId("location-city").value = Object.keys(meta.top_cities)[0];
+  bars("top-cities", meta.top_cities);
+  byId("rating-metrics").textContent = `Decision tree · MAE ${meta.rating.mae.toFixed(3)} · R² ${meta.rating.r2.toFixed(3)} · ${fmt(meta.rating.test)} test rows`;
+  byId("cuisine-metrics").textContent = `Decision tree · ${(meta.cuisine.accuracy*100).toFixed(1)}% accuracy · ${fmt(meta.cuisine.test)} test rows`;
+  await Promise.all([showRows(), selectRestaurant(meta.default_id), showLocation()]);
+  notice.hidden = true;
+}
+for (const button of document.querySelectorAll("[data-tab]")) button.onclick = () => tab(button.dataset.tab);
+search.onsubmit = event => { event.preventDefault(); showRows().catch(fail); };
+byId("previous").onclick = () => showRows(page - 1).catch(fail);
+byId("next").onclick = () => showRows(page + 1).catch(fail);
+byId("location-city").onchange = () => showLocation().catch(fail);
+prediction("predict", "rating-output", (output, result, source) => {
+  output.replaceChildren(element("span", "Predicted rating"), element("strong", result.rating.toFixed(2) + " / 5"),
+    element("small", "Recorded for " + source[nameKey] + ": " + rating(source[ratingKey])));
+});
+prediction("classify", "cuisine-output", (output, result, source) => {
+  output.replaceChildren(element("span", "Predicted cuisines"), element("strong", result.cuisine),
+    element("small", "Recorded for " + source[nameKey] + ": " + (source.Cuisines ?? "Missing")));
+});
+init().catch(fail);
+</script>
+</body></html>

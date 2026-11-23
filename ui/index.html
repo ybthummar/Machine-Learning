@@ -12,50 +12,71 @@ nav{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line);padd
 .stats,.split,.fields{display:grid;gap:14px}.stats{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:24px}.split{grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));align-items:start}.fields{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));margin-bottom:15px}.card{background:white;border:1px solid var(--line);border-radius:12px;padding:21px;min-width:0}.stat strong,.result strong{display:block;font:37px/1.1 Georgia,serif}.result{margin-top:14px;background:#edf4df;padding:14px;border-radius:8px}.toolbar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin-bottom:14px}label{display:grid;gap:4px;font-size:.92rem;font-weight:650}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left}td,th{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{white-space:nowrap;background:#eff3ec}td button{padding:3px 7px;text-align:left}.pager{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}.bar{background:#edf1e8;border-radius:4px;overflow:hidden;height:7px;margin-bottom:10px}.bar span{display:block;background:#537b63;height:100%}.bar-label{display:flex;justify-content:space-between;gap:12px}canvas{width:100%;height:auto;background:#f3f7ef;border:1px solid var(--line);border-radius:8px}.error{color:#842b25}.spaced{margin-top:14px}footer{margin-top:30px;color:var(--muted)}[hidden]{display:none!important}
 
 header{padding-bottom:26px}h1{font-size:clamp(46px,7vw,74px);margin:24px 0 10px}
-.intro{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:18px}.intro p{margin:0;max-width:680px}.intro button{flex-shrink:0}
-.story{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.story-card{height:100%}.story h3{font-size:1.35rem}.step{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-weight:700;color:var(--green)}.step span{font-size:.9rem}.note{color:var(--muted);font-size:.94rem}.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0;gap:8px}.facts div,.flow>div{background:#eff3ec;border-radius:8px;padding:9px 11px}.facts dt{color:var(--muted);font-size:.84rem}.facts dd{margin:0;font-weight:650}.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 16px}.flow small{display:block}.flow>div{background:#e8efdf}.lesson{margin-top:30px}.lesson details{margin-top:10px}summary{cursor:pointer;font-weight:700}details[open]>summary{margin-bottom:10px}.lesson p:last-child,.story p:last-child{margin-bottom:0}.ranked{padding-left:24px}.ranked li{padding:4px 0}.ranked li>div{display:flex;justify-content:space-between;gap:10px}.rating-track{height:12px;border-radius:20px;overflow:hidden;background:#e9eee7;margin-bottom:9px}.rating-track span{display:block;height:100%;background:#315f50;border-radius:inherit}.rating-track.prediction span{background:#74933e}.results-label{display:flex;justify-content:space-between;gap:8px;font-size:.9rem}.comparison{padding:11px 0}.story details ol{padding-left:22px}
-@media(max-width:660px){.story{grid-template-columns:1fr}.intro{align-items:flex-start;flex-direction:column}.flow{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding-inline:16px}}
+.story{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.story-card{height:100%}.story h3{font-size:1.35rem}.note{color:var(--muted);font-size:.94rem}.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0;gap:8px}.facts div,.flow>div{background:#eff3ec;border-radius:8px;padding:9px 11px}.facts dt{color:var(--muted);font-size:.84rem}.facts dd{margin:0;font-weight:650}.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 16px}.flow small{display:block}.flow>div{background:#e8efdf}.lesson{margin-top:30px}.lesson details{margin-top:10px}summary{cursor:pointer;font-weight:700}details[open]>summary{margin-bottom:10px}.lesson p:last-child,.story p:last-child{margin-bottom:0}.ranked{padding-left:24px}.ranked li{padding:4px 0}.ranked li>div{display:flex;justify-content:space-between;gap:10px}.rating-track{height:12px;border-radius:20px;overflow:hidden;background:#e9eee7;margin-bottom:9px}.rating-track span{display:block;height:100%;background:#315f50;border-radius:inherit}.rating-track.prediction span{background:#74933e}.results-label{display:flex;justify-content:space-between;gap:8px;font-size:.9rem}.comparison{padding:11px 0}.story details ol{padding-left:22px}
+@media(max-width:660px){.story{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding-inline:16px}}
+
+header{background:radial-gradient(ellipse at 78% 0%,#315d50 0%,#162f28 55%)}.demo-intro{max-width:760px;margin-bottom:22px}.demo-intro p{color:var(--muted)}
+.demo-layout{display:grid;grid-template-columns:minmax(175px,220px) minmax(0,1fr);gap:20px;align-items:start}.stepper{margin:0;padding:8px;list-style:none;background:#e9eee4;border:1px solid var(--line);border-radius:12px;display:grid;gap:5px}.stepper button{display:flex;align-items:center;gap:9px;text-align:left;width:100%;background:transparent;border-color:transparent;font-size:.94rem;padding:8px}.stepper button:hover{background:#dce8d5}.stepper button[aria-current=step]{background:#fff;border-color:#b9cabb}.stepper span{display:grid;place-items:center;flex:0 0 25px;height:25px;border-radius:50%;background:#d5e3d3;color:#204737}.stepper button[aria-current=step] span{background:#204737;color:white}
+.demo-content{min-width:0}.demo-panel h3{font:clamp(24px,4vw,34px)/1.15 Georgia,serif;margin-bottom:12px}.demo-panel ul,.demo-panel ol{padding-left:23px;margin:8px 0 18px}.demo-panel li+li{margin-top:6px}.demo-controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}.demo-controls span{color:var(--muted);font-size:.9rem}.chart-card{padding:14px;border-radius:9px;background:#eff3ec}.chart-card h4{margin:0 0 8px}.chart-card p{margin:8px 0 0}.segment-bar{display:flex;height:16px;border-radius:6px;overflow:hidden;margin:6px 0 8px;background:#d9e4cf}.segment-bar span{background:#315f50}.split-key{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;font-size:.88rem}.comparison-axis{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}.tree-path{list-style:none;padding-left:0!important}.tree-path li{display:flex;gap:12px;justify-content:space-between;align-items:center;background:#eff3ec;border-left:3px solid #71967b;border-radius:5px;padding:10px 13px}.tree-path small{display:block}.tree-answer{font-weight:700;color:var(--green)}#example-results{margin:12px 0}#example-leaf{font-weight:650}.demo-panel .story h3{font:650 1.16rem system-ui,sans-serif}.lesson{margin-top:0}
+@media(max-width:760px){.demo-layout{grid-template-columns:1fr}.stepper{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}}
 </style>
 </head>
 <body>
 <header>
 <div class="brand"><span>Cognifyz internship project</span><a href="/Dataset.csv" download>Download original CSV ↓</a></div>
-<h1>Restaurant Lab</h1><p>Learn how machine learning works with one real restaurant from the original data.</p>
+<h1>Restaurant Lab</h1><p>Restaurant ratings, cuisine predictions, and city insights from the original dataset.</p>
 </header>
 <main>
 <nav aria-label="Lab sections">
-<button type="button" data-tab="about" aria-pressed="true">Worked example</button><button type="button" data-tab="data" aria-pressed="false">Browse data</button><button type="button" data-tab="models" aria-pressed="false">Try your own</button><button type="button" data-tab="locations" aria-pressed="false">Explore cities</button>
+<button type="button" data-tab="demo" aria-pressed="true">Sample Demo</button><button type="button" data-tab="data" aria-pressed="false">Browse data</button><button type="button" data-tab="models" aria-pressed="false">Try your own</button><button type="button" data-tab="locations" aria-pressed="false">Explore cities</button><button type="button" data-tab="about" aria-pressed="false">How it works</button>
 </nav>
 <p id="notice" role="alert">Loading the dataset and model metrics…</p>
-<section id="about">
-<div class="intro">
-  <div><h2>One restaurant, four questions</h2><p>Follow Ooma, a real restaurant in the dataset. Read its original record, run both models, then see how the same data helps find similar restaurants and describe a city.</p></div>
-  <button type="button" class="primary" id="run-example" disabled>Run the Ooma example</button>
-</div>
-<div class="story">
-  <article class="card story-card">
-    <div class="step">1 <span>Read the data</span></div>
-    <h3 id="example-name">Ooma</h3><p id="example-city" class="muted"></p>
+<section id="demo" aria-labelledby="demo-heading">
+<div class="demo-intro"><h2 id="demo-heading">From restaurant data to a prediction</h2><p>Follow Ooma, a real listing in the original dataset. Work through five steps to see what the models learn, how they make a prediction, and what else the data can tell us.</p></div>
+<div class="demo-layout">
+<ol class="stepper" aria-label="Sample demo steps">
+  <li><button type="button" data-step="0" aria-current="step"><span>1</span> Read the record</button></li>
+  <li><button type="button" data-step="1"><span>2</span> Train and test</button></li>
+  <li><button type="button" data-step="2"><span>3</span> Run predictions</button></li>
+  <li><button type="button" data-step="3"><span>4</span> Follow the tree</button></li>
+  <li><button type="button" data-step="4"><span>5</span> Explore patterns</button></li>
+</ol>
+<div class="demo-content">
+<article class="card demo-panel" data-panel="0">
+  <h3 tabindex="-1">Read one row from the original CSV</h3>
+  <ul><li>Start with Ooma’s original listing.</li><li>The predictors use fields such as votes and cost. The recorded rating and cuisine label are used to check the results.</li></ul>
+    <h4 id="example-name">Ooma</h4><p id="example-city" class="muted"></p>
     <dl class="facts" id="example-facts"></dl>
-    <p class="note">A row describes one restaurant listing. Its recorded rating and cuisines are the answers we can compare against.</p>
-  </article>
+</article>
+<article class="card demo-panel" data-panel="1" hidden>
+  <h3 tabindex="-1">Train the models and measure performance</h3>
+  <ol><li>pandas reads the CSV, keeps the relevant columns, and removes rows missing required values or labels.</li><li>scikit-learn trains each decision tree on about 80% of its eligible rows.</li><li>The remaining rows are held out and used to measure performance on that split.</li></ol>
+  <div class="split"><div class="chart-card"><h4>Rating model</h4><div id="rating-split"></div><p id="demo-rating-score"></p></div><div class="chart-card"><h4>Cuisine model</h4><div id="cuisine-split"></div><p id="demo-cuisine-score"></p></div></div>
+</article>
+<article class="card demo-panel" data-panel="2" hidden>
+  <h3 tabindex="-1">Compare Ooma’s predictions with its record</h3>
+  <ul><li>The rating model predicts a number using cost, votes, price tier, booking, and delivery.</li><li>The cuisine model predicts a label using the encoded restaurant name and cost.</li></ul>
+  <button type="button" class="primary" id="run-example" disabled>Run the Ooma example</button>
+    <div id="example-results" role="status">Run the example to see both results here.</div>
+  <p class="note">This result illustrates one listing. Step 2 shows performance across all held-out rows.</p>
+</article>
+<article class="card demo-panel" data-panel="3" hidden>
+  <h3 tabindex="-1">Follow the questions in the rating tree</h3>
+  <p>Each question sends Ooma down one branch. At the end, the model averages the ratings of the training rows that reached the same group.</p>
+  <p id="path-empty">Run both models in Step 3 to see Ooma’s path. <button type="button" id="open-prediction">Go to predictions</button></p>
+  <div id="example-decisions" hidden><ol id="example-path" class="tree-path"></ol><p id="example-leaf" class="result"></p></div>
+</article>
+<article class="demo-panel" data-panel="4" hidden>
+  <h3 tabindex="-1">Explore similar restaurants and city data</h3>
+  <p>Two more views use the original records. The recommendation rule matches cuisines. The city chart counts cuisine mentions.</p>
+  <div class="story">
   <article class="card story-card">
-    <div class="step">2 <span>Run the models</span></div>
-    <h3>What will the model predict?</h3>
-    <div id="example-results" role="status">Run the example to compare model predictions with the original record. The test scores below summarize performance across held-out records.</div>
-    <details id="example-decisions" hidden><summary>See the questions the rating tree asked</summary><ol id="example-path"></ol><p id="example-leaf" class="note"></p></details>
-  </article>
-</div>
-<div class="story spaced">
-  <article class="card story-card">
-    <div class="step">3 <span>Find similar restaurants</span></div>
     <h3>Who serves the same cuisines?</h3>
     <p id="example-match" class="muted"></p>
     <ol id="example-recommendations" class="ranked"></ol>
     <p class="note">The app matches the full cuisine label and ranks results by their recorded ratings. The example shows the top three. The minimum rating is 4.0 out of 5.</p>
   </article>
   <article class="card story-card">
-    <div class="step">4 <span>Explore the city</span></div>
     <h3>What does the local data show?</h3>
     <p id="example-location"></p>
     <p class="note">Most frequently listed cuisines in this city. One listing can count toward more than one cuisine.</p>
@@ -63,6 +84,12 @@ header{padding-bottom:26px}h1{font-size:clamp(46px,7vw,74px);margin:24px 0 10px}
     <button type="button" id="open-example-city">View city details</button>
   </article>
 </div>
+</article>
+<div class="demo-controls"><button id="demo-back" type="button" disabled>Back</button><span id="demo-progress" role="status">Step 1 of 5</span><button id="demo-next" class="primary" type="button">Next step</button></div>
+</div>
+</div>
+</section>
+<section id="about" hidden>
 <div class="lesson">
   <h2>How it works</h2>
   <div class="flow" aria-label="From original data to prediction">
@@ -260,6 +287,48 @@ function ratingBar(label, value, predicted = false) {
   row.append(heading, track);
   return row;
 }
+const demoButtons = [...document.querySelectorAll("[data-step]")];
+const demoPanels = [...document.querySelectorAll("[data-panel]")];
+let demoStep = 0;
+function showStep(index) {
+  demoStep = Math.max(0, Math.min(demoPanels.length - 1, index));
+  for (const [i, button] of demoButtons.entries()) {
+    if (i === demoStep) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
+    demoPanels[i].hidden = i !== demoStep;
+  }
+  byId("demo-back").disabled = demoStep === 0;
+  byId("demo-next").textContent = demoStep === demoPanels.length - 1 ? "Start again" : "Next step";
+  byId("demo-progress").textContent = `Step ${demoStep + 1} of ${demoPanels.length}`;
+  demoPanels[demoStep].querySelector("h3").focus();
+}
+function splitChart(id, metrics) {
+  const bar = element("div", undefined, "segment-bar");
+  bar.setAttribute("aria-hidden", "true");
+  const training = element("span");
+  training.style.width = (100 * metrics.train / (metrics.train + metrics.test)) + "%";
+  bar.append(training);
+  const key = element("div", undefined, "split-key");
+  key.append(element("span", fmt(metrics.train) + " training rows"),
+             element("span", fmt(metrics.test) + " test rows"));
+  byId(id).replaceChildren(bar, key);
+}
+function renderTree(decisions, count, estimate) {
+  const list = byId("example-path");
+  list.replaceChildren();
+  for (const [index, step] of decisions.entries()) {
+    const item = element("li");
+    const question = element("div");
+    question.append(element("strong", (index + 1) + ". " + step.question),
+                    element("small", "Ooma’s input: " + step.value));
+    item.append(question, element("span", step.answer, "tree-answer"));
+    list.append(item);
+  }
+  byId("example-leaf").textContent =
+    `Final group: ${fmt(count)} training rows · Mean rating: ${estimate.toFixed(2)} / 5`;
+  byId("example-decisions").hidden = false;
+  byId("path-empty").hidden = true;
+}
 async function setupExample(id) {
   const {source, recommendations} = await get("restaurant", {id});
   const location = await get("locations", {city: source.City});
@@ -307,15 +376,14 @@ async function setupExample(id) {
       ]);
       const bars = element("div", undefined, "comparison");
       bars.append(ratingBar("Recorded rating", source[ratingKey]), ratingBar("Predicted rating", estimate, true));
+      const axis = element("div", undefined, "comparison-axis");
+      axis.append(element("span", "0"), element("span", "2.5"), element("span", "5"));
+      bars.append(axis);
       const difference = Math.abs(estimate - source[ratingKey]).toFixed(2);
       const labels = element("p", "Predicted cuisines: " + cuisine + ". Recorded cuisines: " + source.Cuisines + ".");
       const detail = element("p", "Rating difference for this example: " + difference + " points.", "note");
       output.replaceChildren(bars, detail, labels);
-      const list = byId("example-path");
-      list.replaceChildren(...decisions.map(step => element("li",
-        step.question + " " + step.answer + " (input: " + step.value + ")")));
-      byId("example-leaf").textContent = `The final group contains ${fmt(leaf_rows)} training rows. Their mean rating is ${estimate.toFixed(2)}.`;
-      byId("example-decisions").hidden = false;
+      renderTree(decisions, leaf_rows, estimate);
       run.textContent = "Run the example again";
     } catch (error) {
       output.textContent = error.message;
@@ -337,12 +405,20 @@ async function init() {
   bars("top-cities", meta.top_cities);
   byId("rating-metrics").textContent = `Decision tree · MAE ${meta.rating.mae.toFixed(3)} · R² ${meta.rating.r2.toFixed(3)} · ${fmt(meta.rating.test)} test rows`;
   byId("cuisine-metrics").textContent = `Decision tree · ${(meta.cuisine.accuracy*100).toFixed(1)}% accuracy · ${fmt(meta.cuisine.test)} test rows`;
+  splitChart("rating-split", meta.rating);
+  splitChart("cuisine-split", meta.cuisine);
+  byId("demo-rating-score").textContent = `Average error: ${meta.rating.mae.toFixed(2)} points out of 5 on the test rows.`;
+  byId("demo-cuisine-score").textContent = `Exact cuisine match: ${(100 * meta.cuisine.accuracy).toFixed(1)}% of test rows.`;
   byId("lesson-rating").textContent = `On ${fmt(meta.rating.test)} test rows, the mean absolute error was ${meta.rating.mae.toFixed(2)} rating points. R² was ${meta.rating.r2.toFixed(2)}, which means the model explained about ${Math.round(meta.rating.r2 * 100)}% of the rating variation in this test split.`;
   byId("lesson-cuisine").textContent = `On ${fmt(meta.cuisine.test)} test rows, ${(meta.cuisine.accuracy * 100).toFixed(1)}% of predicted labels matched exactly.`;
   await Promise.all([showRows(), selectRestaurant(meta.default_id), showLocation(), setupExample(meta.default_id)]);
   notice.hidden = true;
 }
 for (const button of document.querySelectorAll("[data-tab]")) button.onclick = () => tab(button.dataset.tab);
+for (const [index, button] of demoButtons.entries()) button.onclick = () => showStep(index);
+byId("demo-back").onclick = () => showStep(demoStep - 1);
+byId("demo-next").onclick = () => showStep((demoStep + 1) % demoPanels.length);
+byId("open-prediction").onclick = () => showStep(2);
 search.onsubmit = event => { event.preventDefault(); showRows().catch(fail); };
 byId("previous").onclick = () => showRows(page - 1).catch(fail);
 byId("next").onclick = () => showRows(page + 1).catch(fail);

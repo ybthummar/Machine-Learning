@@ -10,42 +10,92 @@
 .brand{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:650}.brand a{color:var(--accent)}h1{font:clamp(48px,8vw,96px)/.98 Georgia,serif;letter-spacing:-.06em;margin:36px 0 16px}header p{color:#d5e3da;max-width:600px;margin:0}h2{font:35px/1.1 Georgia,serif;margin:0 0 12px}h3{margin:0 0 8px}p{margin:0 0 15px}small,.muted{color:var(--muted)}
 nav{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:24px}button,input,select{font:inherit;color:inherit;border:1px solid #9aac9f;border-radius:7px;background:white;padding:8px 12px;max-width:100%}button{cursor:pointer;font-weight:650}button:hover{background:#edf5df}button[aria-pressed=true],button.primary{background:var(--accent);border-color:#829b53}button:disabled{opacity:.45;cursor:default}a{color:#245440}
 .stats,.split,.fields{display:grid;gap:14px}.stats{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:24px}.split{grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));align-items:start}.fields{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));margin-bottom:15px}.card{background:white;border:1px solid var(--line);border-radius:12px;padding:21px;min-width:0}.stat strong,.result strong{display:block;font:37px/1.1 Georgia,serif}.result{margin-top:14px;background:#edf4df;padding:14px;border-radius:8px}.toolbar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin-bottom:14px}label{display:grid;gap:4px;font-size:.92rem;font-weight:650}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left}td,th{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{white-space:nowrap;background:#eff3ec}td button{padding:3px 7px;text-align:left}.pager{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}.bar{background:#edf1e8;border-radius:4px;overflow:hidden;height:7px;margin-bottom:10px}.bar span{display:block;background:#537b63;height:100%}.bar-label{display:flex;justify-content:space-between;gap:12px}canvas{width:100%;height:auto;background:#f3f7ef;border:1px solid var(--line);border-radius:8px}.error{color:#842b25}.spaced{margin-top:14px}footer{margin-top:30px;color:var(--muted)}[hidden]{display:none!important}
+
+header{padding-bottom:26px}h1{font-size:clamp(46px,7vw,74px);margin:24px 0 10px}
+.intro{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:18px}.intro p{margin:0;max-width:680px}.intro button{flex-shrink:0}
+.story{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.story-card{height:100%}.story h3{font-size:1.35rem}.step{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-weight:700;color:var(--green)}.step span{font-size:.9rem}.note{color:var(--muted);font-size:.94rem}.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0;gap:8px}.facts div,.flow>div{background:#eff3ec;border-radius:8px;padding:9px 11px}.facts dt{color:var(--muted);font-size:.84rem}.facts dd{margin:0;font-weight:650}.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 16px}.flow small{display:block}.flow>div{background:#e8efdf}.lesson{margin-top:30px}.lesson details,.talk{margin-top:10px}summary{cursor:pointer;font-weight:700}details[open]>summary{margin-bottom:10px}.lesson p:last-child,.story p:last-child{margin-bottom:0}.ranked{padding-left:24px}.ranked li{padding:4px 0}.ranked li>div{display:flex;justify-content:space-between;gap:10px}.rating-track{height:12px;border-radius:20px;overflow:hidden;background:#e9eee7;margin-bottom:9px}.rating-track span{display:block;height:100%;background:#315f50;border-radius:inherit}.rating-track.prediction span{background:#74933e}.results-label{display:flex;justify-content:space-between;gap:8px;font-size:.9rem}.comparison{padding:11px 0}.story details ol{padding-left:22px}
+@media(max-width:660px){.story{grid-template-columns:1fr}.intro{align-items:flex-start;flex-direction:column}.flow{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding-inline:16px}}
 </style>
 </head>
 <body>
 <header>
 <div class="brand"><span>Cognifyz internship project</span><a href="/Dataset.csv" download>Download original CSV ↓</a></div>
-<h1>Restaurant Lab</h1><p>Explore the repository’s restaurant records, find similar restaurants, and run the models with inputs from the original data.</p>
+<h1>Restaurant Lab</h1><p>Learn how machine learning works with one real restaurant from the original data.</p>
 </header>
 <main>
 <nav aria-label="Lab sections">
-<button type="button" data-tab="data" aria-pressed="true">Original data</button><button type="button" data-tab="models" aria-pressed="false">Live models</button><button type="button" data-tab="recommend" aria-pressed="false">Recommendations</button><button type="button" data-tab="locations" aria-pressed="false">Locations</button><button type="button" data-tab="about" aria-pressed="false">How it works</button>
+<button type="button" data-tab="about" aria-pressed="true">Worked example</button><button type="button" data-tab="data" aria-pressed="false">Browse data</button><button type="button" data-tab="models" aria-pressed="false">Try your own</button><button type="button" data-tab="locations" aria-pressed="false">Explore cities</button>
 </nav>
 <p id="notice" role="alert">Loading the dataset and model metrics…</p>
-<section id="data">
+<section id="about">
+<div class="intro">
+  <div><h2>One restaurant, four questions</h2><p>Follow Ooma, a real restaurant in the dataset. Read its original record, run both models, then see how the same data helps find similar restaurants and describe a city.</p></div>
+  <button type="button" class="primary" id="run-example" disabled>Run the Ooma example</button>
+</div>
+<div class="story">
+  <article class="card story-card">
+    <div class="step">1 <span>Read the data</span></div>
+    <h3 id="example-name">Ooma</h3><p id="example-city" class="muted"></p>
+    <dl class="facts" id="example-facts"></dl>
+    <p class="note">A row describes one restaurant listing. Its recorded rating and cuisines are the answers we can compare against.</p>
+  </article>
+  <article class="card story-card">
+    <div class="step">2 <span>Run the models</span></div>
+    <h3>What will the model predict?</h3>
+    <div id="example-results" role="status">Run the example to compare model predictions with the original record. The test scores below summarize performance across held-out records.</div>
+    <details id="example-decisions" hidden><summary>See the questions the rating tree asked</summary><ol id="example-path"></ol><p id="example-leaf" class="note"></p></details>
+  </article>
+</div>
+<div class="story spaced">
+  <article class="card story-card">
+    <div class="step">3 <span>Find similar restaurants</span></div>
+    <h3>Who serves the same cuisines?</h3>
+    <p id="example-match" class="muted"></p>
+    <ol id="example-recommendations" class="ranked"></ol>
+    <p class="note">The app matches the full cuisine label and ranks results by their recorded ratings. The example shows the top three. The minimum rating is 4.0 out of 5.</p>
+  </article>
+  <article class="card story-card">
+    <div class="step">4 <span>Explore the city</span></div>
+    <h3>What does the local data show?</h3>
+    <p id="example-location"></p>
+    <p class="note">Most frequently listed cuisines in this city. One listing can count toward more than one cuisine.</p>
+    <div id="example-cuisines"></div>
+    <button type="button" id="open-example-city">View city details</button>
+  </article>
+</div>
+<div class="lesson">
+  <h2>How it works</h2>
+  <div class="flow" aria-label="From original data to prediction">
+    <div><strong>Original CSV</strong><small>Read the restaurant records with pandas.</small></div>
+    <div><strong>Training rows</strong><small>scikit-learn fits two decision trees on roughly 80% of eligible rows.</small></div>
+    <div><strong>Test rows</strong><small>The other 20% measure how well each tree works on held-out records.</small></div>
+    <div><strong>Live prediction</strong><small>Your inputs follow one path through the trained tree to a result.</small></div>
+  </div>
+  <details class="card" open><summary>Rating prediction · decision tree regression</summary><p>Regression estimates a number. The tree learns questions about cost for two, price tier, votes, table booking and online delivery. Each answer sends the row down a branch. The final group of training rows supplies the average rating used as the prediction.</p><p>We train with rated listings and leave out rating text and color because the dataset derives them from the answer. A vote count is available for listings with existing reviews. Costs use the units recorded in the CSV.</p><p id="lesson-rating" class="note"></p></details>
+  <details class="card"><summary>Cuisine prediction · decision tree classification</summary><p>Classification picks a label. The tree uses the restaurant name, encoded as an ID-like number, and the cost for two. It returns the most common full cuisine label in the final group of training rows. “Japanese, Sushi” is one label and must match as a whole.</p><p id="lesson-cuisine" class="note"></p><p>Restaurant names and prices give the model limited clues. Two listings with the same name can appear in both training and test rows.</p></details>
+  <details class="card"><summary>Recommendations and city charts · rules and summaries</summary><p>Recommendations use the notebook’s cuisine-matching rule. A full-label match scores 1 and any other label scores 0. The app keeps the highest-rated listing per restaurant name, excludes the chosen restaurant, and shows up to five matches.</p><p>The city charts group rows by city, count listings, and average the ratings of listings that have one. The coordinate plot shows where listings appear in the CSV. The counts describe the dataset’s coverage.</p></details>
+  <details class="card"><summary>What we use to build the app</summary><p><strong>Python</strong> runs the app locally. <strong>pandas</strong> reads and groups the CSV. <strong>scikit-learn</strong> trains the trees and measures test performance. <strong>HTML, CSS, and JavaScript</strong> build the forms and charts and request predictions from Python when you click Run.</p></details>
+  <article class="card talk"><h3>What to say in a presentation</h3><p>“I start with Ooma’s real record. The rating model predicts a number, and the cuisine model predicts a label. I compare both with what was recorded. Then I use a matching rule to find similar restaurants and group the original records to show what the dataset covers in Ooma’s city.”</p></article>
+</div>
+</section>
+<section id="data" hidden>
 <div id="stats" class="stats"></div>
-<div class="card"><h2>Dataset explorer</h2><p class="muted">Select a restaurant to load its original values into the model and recommendation views.</p>
+<div class="card"><h2>Dataset explorer</h2><p class="muted">Select any restaurant to use its original values in Try your own.</p>
 <form id="search-form" class="toolbar"><label>Search name, cuisine or ID<input name="q" type="search" placeholder="Try Japanese or Ooma"></label><label>City<select name="city" id="data-city"></select></label><button class="primary">Search</button></form>
 <div class="table-wrap"><table><thead><tr><th scope="col">Restaurant</th><th scope="col">City</th><th scope="col">Cuisines</th><th scope="col">Rating</th><th scope="col">Votes</th><th scope="col">Cost for two</th></tr></thead><tbody id="rows"></tbody></table></div>
 <div class="pager"><button id="previous" disabled>Previous</button><button id="next" disabled>Next</button><span id="page-label" role="status"></span></div></div>
 </section>
 <section id="models" hidden>
-<h2>Live models</h2><p>Start with <strong class="selected-name"></strong> from the dataset or edit the model inputs below.</p>
+<h2>Try your own prediction</h2><p>Start with <strong class="selected-name"></strong> from the dataset or edit the model inputs below.</p>
 <div class="split">
 <article class="card"><h3>Predict a rating</h3><p class="muted" id="rating-metrics"></p>
 <form id="predict"><div class="fields"><label>Cost for two<input name="cost" type="number" min="0" max="1000000000" step="any" required></label><label>Votes<input name="votes" type="number" min="0" max="1000000000" required></label><label>Price tier<select name="price"><option>1</option><option>2</option><option>3</option><option>4</option></select></label><label>Table booking<select name="book"><option>No</option><option>Yes</option></select></label><label>Online delivery<select name="delivery"><option>No</option><option>Yes</option></select></label></div><button class="primary">Predict rating</button></form><div class="result" id="rating-output" role="status"></div></article>
 <article class="card"><h3>Classify cuisines</h3><p class="muted" id="cuisine-metrics"></p><form id="classify"><div class="fields"><label>Restaurant name<input name="name" readonly required></label><label>Cost for two<input name="cost" type="number" min="0" max="1000000000" step="any" required></label></div><button class="primary">Predict cuisines</button></form><div class="result" id="cuisine-output" role="status"></div></article>
-</div></section>
-<section id="recommend" hidden><div class="card"><h2>Similar restaurants</h2><p id="recommend-summary"></p><p class="muted">Matches share the same full cuisine label and have ratings of 4.0 or higher. Choose another restaurant from Original data to change the reference.</p><div id="recommend-list" class="split"></div></div></section>
+</div>
+<div class="card spaced"><h3>Similar restaurants</h3><p id="recommend-summary"></p><p class="muted">Matches share the same full cuisine label and have ratings of 4.0 or higher. Choose another restaurant from Browse data to change the reference.</p><div id="recommend-list" class="split"></div></div></section>
 <section id="locations" hidden><h2>Restaurant locations</h2><div class="split">
 <article class="card"><h3>Most represented cities</h3><p class="muted">Restaurant records in the original dataset</p><div id="top-cities"></div></article>
 <article class="card"><label>City<select id="location-city"></select></label><p id="location-summary" class="spaced" role="status"></p><canvas id="coordinates" width="560" height="260" aria-label="Scatter plot of restaurant longitude and latitude"></canvas><small>Longitude runs left to right. Latitude increases upward. Axes rescale for each city.</small><h3 class="spaced">Most listed cuisines</h3><div id="city-cuisines"></div><h3 class="spaced">Price tiers</h3><div id="city-prices"></div></article>
-</div></section>
-<section id="about" hidden><h2>How it works</h2><div class="split">
-<article class="card"><h3>Rating prediction</h3><p>A decision tree learns from the cost for two, price tier, vote count, and booking and delivery options. It estimates ratings for restaurants with those characteristics.</p><p>Training excludes zero ratings, which the dataset labels as “Not rated,” and rating text and color, which are derived from the rating. MAE measures the average error in rating points. R² measures how much variation the model explains on the held-out rows. Votes are available for listings with existing reviews.</p></article>
-<article class="card"><h3>Cuisine classification</h3><p>A decision tree uses the encoded restaurant name and cost for two to predict a full cuisine label, such as “Japanese, Sushi.” Choose a known restaurant in Original data to try it.</p><p>Accuracy is the share of held-out rows with an exact label match. Names and prices alone provide limited information about cuisine, and names can occur in both training and test rows.</p></article>
-<article class="card"><h3>Recommendations</h3><p>The notebook represents each complete cuisine label as one category. Its Jaccard similarity is 1 for identical labels and 0 otherwise. The UI uses that matching rule, keeps the highest-rated row for each candidate name, and shows up to five results ranked by rating.</p></article>
-<article class="card"><h3>Location analysis</h3><p>City views count original records, plot the supplied coordinates, and summarize cuisine and price tiers. Average ratings use rated rows. Cuisine counts split comma-separated labels, so one restaurant can count toward several cuisines.</p><p>City totals describe dataset coverage. Costs are displayed with the currency listed in the source and are used as recorded by the models.</p></article>
 </div></section>
 <footer>Source: <a href="/Dataset.csv">Dataset.csv</a> · <a href="https://github.com/ybthummar/Machine-Learning">Original notebooks</a></footer>
 </main>
@@ -199,6 +249,82 @@ function prediction(formId, outputId, description) {
     }
   };
 }
+function ratingBar(label, value, predicted = false) {
+  const heading = element("div", undefined, "results-label");
+  heading.append(element("span", label), element("strong", value.toFixed(2) + " / 5"));
+  const track = element("div", undefined, predicted ? "rating-track prediction" : "rating-track");
+  track.setAttribute("aria-hidden", "true");
+  const fill = element("span");
+  fill.style.width = (100 * value / 5) + "%";
+  track.append(fill);
+  const row = element("div");
+  row.append(heading, track);
+  return row;
+}
+async function setupExample(id) {
+  const {source, recommendations} = await get("restaurant", {id});
+  const location = await get("locations", {city: source.City});
+  const run = byId("run-example");
+  const output = byId("example-results");
+  byId("example-name").textContent = source[nameKey];
+  byId("example-city").textContent = source.City + " · Listing #" + source["Restaurant ID"];
+  const facts = byId("example-facts");
+  for (const [label, value] of [
+    ["Recorded rating", rating(source[ratingKey])], ["Recorded cuisines", source.Cuisines],
+    ["Cost for two (CSV units)", fmt(source[costKey])], ["Customer votes", fmt(source.Votes)],
+    ["Price tier", source["Price range"] + " / 4"],
+    ["Table booking / delivery", source["Has Table booking"] + " / " + source["Has Online delivery"]]
+  ]) {
+    const fact = element("div");
+    fact.append(element("dt", label), element("dd", value));
+    facts.append(fact);
+  }
+  byId("example-match").textContent = "Cuisine being matched: " + source.Cuisines;
+  const ranked = byId("example-recommendations");
+  for (const row of recommendations.slice(0, 3)) {
+    const item = element("li");
+    item.append(ratingBar(row[nameKey], row[ratingKey]));
+    ranked.append(item);
+  }
+  byId("example-location").textContent =
+    `${source.City} has ${fmt(location.count)} listings in the CSV. The ${fmt(location.rated)} rated listings average ${location.average === null ? "an unavailable rating" : location.average.toFixed(2) + " / 5"}.`;
+  bars("example-cuisines", Object.fromEntries(Object.entries(location.cuisines).slice(0, 4)));
+  byId("open-example-city").onclick = () => {
+    byId("location-city").value = source.City;
+    tab("locations");
+    showLocation().catch(fail);
+  };
+  run.disabled = false;
+  run.onclick = async () => {
+    run.disabled = true;
+    output.textContent = "Running both models…";
+    try {
+      const [{rating: estimate, decisions, leaf_rows}, {cuisine}] = await Promise.all([
+        get("predict", {
+          cost: source[costKey], votes: source.Votes, price: source["Price range"],
+          book: source["Has Table booking"], delivery: source["Has Online delivery"]
+        }),
+        get("classify", {name: source[nameKey], cost: source[costKey]})
+      ]);
+      const bars = element("div", undefined, "comparison");
+      bars.append(ratingBar("Recorded rating", source[ratingKey]), ratingBar("Predicted rating", estimate, true));
+      const difference = Math.abs(estimate - source[ratingKey]).toFixed(2);
+      const labels = element("p", "Predicted cuisines: " + cuisine + ". Recorded cuisines: " + source.Cuisines + ".");
+      const detail = element("p", "Rating difference for this example: " + difference + " points.", "note");
+      output.replaceChildren(bars, detail, labels);
+      const list = byId("example-path");
+      list.replaceChildren(...decisions.map(step => element("li",
+        step.question + " " + step.answer + " (input: " + step.value + ")")));
+      byId("example-leaf").textContent = `The final group contains ${fmt(leaf_rows)} training rows. Their mean rating is ${estimate.toFixed(2)}.`;
+      byId("example-decisions").hidden = false;
+      run.textContent = "Run the example again";
+    } catch (error) {
+      output.textContent = error.message;
+    } finally {
+      run.disabled = false;
+    }
+  };
+}
 async function init() {
   const meta = await get("meta");
   for (const [num, label] of [[meta.rows,"Restaurant records"],[meta.city_count,"Cities"],[meta.columns,"Original fields"],[meta.unrated,"Unrated records"]]) {
@@ -212,7 +338,9 @@ async function init() {
   bars("top-cities", meta.top_cities);
   byId("rating-metrics").textContent = `Decision tree · MAE ${meta.rating.mae.toFixed(3)} · R² ${meta.rating.r2.toFixed(3)} · ${fmt(meta.rating.test)} test rows`;
   byId("cuisine-metrics").textContent = `Decision tree · ${(meta.cuisine.accuracy*100).toFixed(1)}% accuracy · ${fmt(meta.cuisine.test)} test rows`;
-  await Promise.all([showRows(), selectRestaurant(meta.default_id), showLocation()]);
+  byId("lesson-rating").textContent = `On ${fmt(meta.rating.test)} test rows, the mean absolute error was ${meta.rating.mae.toFixed(2)} rating points. R² was ${meta.rating.r2.toFixed(2)}, which means the model explained about ${Math.round(meta.rating.r2 * 100)}% of the rating variation in this test split.`;
+  byId("lesson-cuisine").textContent = `On ${fmt(meta.cuisine.test)} test rows, ${(meta.cuisine.accuracy * 100).toFixed(1)}% of predicted labels matched exactly.`;
+  await Promise.all([showRows(), selectRestaurant(meta.default_id), showLocation(), setupExample(meta.default_id)]);
   notice.hidden = true;
 }
 for (const button of document.querySelectorAll("[data-tab]")) button.onclick = () => tab(button.dataset.tab);

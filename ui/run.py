@@ -125,7 +125,25 @@ def api(route, query):
                 book not in {"Yes", "No"} or delivery not in {"Yes", "No"}):
             raise ValueError("Enter valid costs, votes, price tier and service options.")
         features = pd.DataFrame([[cost, price, votes, book, delivery]], columns=FIELDS)
-        return {"rating": round(float(regressor.predict(rating_features(features))[0]), 2)}
+        encoded = rating_features(features)
+        path = regressor.decision_path(encoded).indices
+        tree = regressor.tree_
+        decisions = []
+        for node, child in zip(path[:-1], path[1:]):
+            index = tree.feature[node]
+            field = FIELDS[index]
+            threshold = float(tree.threshold[node])
+            went_left = tree.children_left[node] == child
+            if field in {BOOK, DELIVERY}:
+                question = f"{field.removeprefix('Has ').capitalize()} available?"
+                answer = "No" if went_left else "Yes"
+            else:
+                question = f"{field} at or below {threshold:g}?"
+                answer = "Yes" if went_left else "No"
+            decisions.append({"question": question, "answer": answer,
+                              "value": features.iloc[0].to_dict()[field]})
+        return {"rating": round(float(regressor.predict(encoded)[0]), 2),
+                "decisions": decisions, "leaf_rows": int(tree.n_node_samples[path[-1]])}
     if route == "classify":
         name, cost = param("name"), float(param("cost"))
         if name not in names or not math.isfinite(cost) or not 0 <= cost <= 1e9:
